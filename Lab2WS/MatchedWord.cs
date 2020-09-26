@@ -1,4 +1,4 @@
-﻿namespace Lab2WS
+namespace Lab2WS
 {
     struct MatchedWord
     {
