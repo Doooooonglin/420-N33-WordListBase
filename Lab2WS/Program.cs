@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Net;
 
 namespace Lab2WS
 {
@@ -12,32 +13,37 @@ namespace Lab2WS
         {
             try
             {
+                READ:
                 Console.WriteLine("Enter the scrambled words manually or as a file: f - file, m = manual");
+              
 
-                string option = Console.ReadLine() ?? throw new Exception("String is null");
+                    string option = Console.ReadLine() ?? throw new Exception("String is null");
 
-                switch (option.ToUpper())
-                {
-                    case "F":
-                        Console.WriteLine("Enter the full path and filename >");
-                        ExecuteScrambledWordsInFileScenario();
-                        break;
-                    case "M":
-                        Console.WriteLine("Enter word(s) separated by a comma");
-                        ExecuteScrambledWordsManualEntryScenario();
-                        break;
-                    default:
-                        Console.WriteLine("The entered option was not recognized");
-                        break;
-                }
+                    switch (option.ToUpper())
+                    {
+                        case "F":
+                            Console.WriteLine("Enter the full path and filename >");
+                            ExecuteScrambledWordsInFileScenario();
 
-                // Optional for now (when you have no loop)  (Take out when finished)
-                Console.ReadKey();
+                            break;
+                        case "M":
+                            Console.WriteLine("Enter word(s) separated by a comma");
+                            ExecuteScrambledWordsManualEntryScenario();
+                            break;
+                        default:
+                            Console.WriteLine("The entered option was not recognized");
+                            goto READ;
+                    }
+               
+                    // Optional for now (when you have no loop)  (Take out when finished)
+                    Console.ReadKey();
+                
 
             }
             catch (Exception e)
             {
                 Console.WriteLine("Sorry an error has occurred.. " + e.Message);
+                
             }
             
 
@@ -53,9 +59,15 @@ namespace Lab2WS
 
         private static void ExecuteScrambledWordsManualEntryScenario()
         {
+            string inputWord = Console.ReadLine();
+            string changeWord = string.Join("," , inputWord);
+            string[] scrambledWords = changeWord.Split(',');
+            DisplayMatchedScrambledWords(scrambledWords);
+            
             // 1 get the user's input - comma separated string containing scrambled words
             // 2 Extract the words into a string (red,blue,green) 
             // 3 Call the DisplayMatchedUnscrambledWords method passing the scrambled words string array
+            //finish
 
         }
 
@@ -64,6 +76,15 @@ namespace Lab2WS
             string[] wordList = fileReader.Read(@"wordlist.txt"); // Put in a constants file. CAPITAL LETTERS.  READONLY.
 
             List<MatchedWord> matchedWords = wordMatcher.Match(scrambledWords, wordList);
+            if (matchedWords == null)
+            {
+                Console.WriteLine("No words were founded");
+        
+            }
+            while(matchedWords != null)
+            {
+                Console.WriteLine("MATCH FOUND FOR"+scrambledWords);
+            }
 
 
             // Rule:  Use a formatter to display ... eg:  {0}{1}
@@ -72,5 +93,6 @@ namespace Lab2WS
             //            if empty - display no words found message.
             //            if NOT empty - Display the matches.... use "foreach" with the list (matchedWords)
         }
+
     }
 }
