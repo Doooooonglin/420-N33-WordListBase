@@ -1,5 +1,6 @@
-﻿using System;
+ using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Lab2WS
 {
@@ -22,6 +23,12 @@ namespace Lab2WS
                     }
                     else
                     {
+                        char[] strWordChar = word.ToCharArray();
+                        sortedWord[] = new Array.Sort(strWordChar);
+                        
+
+
+                      
                         //convert strings into character arrays i.e. ToCharArray()
                         //sort both character arrays
                         //convert sorted character arrays into strings (toString)
@@ -51,3 +58,4 @@ namespace Lab2WS
 
     }
 }
+
