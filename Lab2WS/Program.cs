@@ -11,11 +11,13 @@ namespace Lab2WS
 
         static void Main(string[] args)
         {
-            try
-            {
+             
+            
+                try
+                {
                 READ:
-                Console.WriteLine("Enter the scrambled words manually or as a file: f - file, m = manual");
-              
+                    Console.WriteLine("Enter the scrambled words manually or as a file: f - file, m = manual");
+
 
                     string option = Console.ReadLine() ?? throw new Exception("String is null");
 
@@ -33,22 +35,57 @@ namespace Lab2WS
                         default:
                             Console.WriteLine("The entered option was not recognized");
                             goto READ;
+
                     }
-               
+
                     // Optional for now (when you have no loop)  (Take out when finished)
                     Console.ReadKey();
-                
+                try
+                {
+                FINI:
+                    Console.WriteLine("Would you like to continue? YES/NO");
+
+
+                    string end = Console.ReadLine() ?? throw new Exception("String is null");
+
+                    switch (end.ToUpper())
+                    {
+                        case "YES":
+                            Console.WriteLine("We'll go back");
+                            goto READ;
+
+                 
+                        case "NO":
+                            Console.WriteLine("Thanks for using the word matcher");
+
+                            break;
+                        default:
+                            Console.WriteLine("PLEASE ANSWER YES OR NO!");
+                            goto FINI;
+                    }
+
+                    // Optional for now (when you have no loop)  (Take out when finished)
+                    Console.ReadKey();
+
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Sorry an error has occurred.. " + e.Message);
+
+                }
 
             }
-            catch (Exception e)
-            {
-                Console.WriteLine("Sorry an error has occurred.. " + e.Message);
-                
-            }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Sorry an error has occurred.. " + e.Message);
+
+                }
             
-
-
+           
         }
+
+        
 
         private static void ExecuteScrambledWordsInFileScenario()
         {
@@ -79,13 +116,16 @@ namespace Lab2WS
             if (matchedWords == null)
             {
                 Console.WriteLine("No words were founded");
-        
+                
+
+
             }
             while(matchedWords != null)
             {
-                Console.WriteLine("MATCH FOUND FOR"+scrambledWords);
+                Console.WriteLine("MATCH FOUND FOR{0}:{1}" ,scrambledWords);
+                
             }
-
+            
 
             // Rule:  Use a formatter to display ... eg:  {0}{1}
 
@@ -96,3 +136,4 @@ namespace Lab2WS
 
     }
 }
+
